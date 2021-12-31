@@ -12,7 +12,7 @@ import Navigation from './src/Navigation';
 
 const App = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <Navigation />
     </SafeAreaView>
   );
