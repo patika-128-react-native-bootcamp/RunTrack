@@ -12,7 +12,6 @@ export default function Navigation() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        {/*login new activity */}
         <Tab.Screen name={routes.HOME} component={HomeScreen} />
         <Tab.Screen name={routes.DASHBOARD} component={DashboardScreen} />
         <Tab.Screen name={routes.HISTORY} component={HistoryScreen} />
