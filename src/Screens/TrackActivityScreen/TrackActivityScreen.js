@@ -2,19 +2,35 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import MapView, {Marker, Polyline} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
+import BarChart from '../../components/BarChart';
 
 export default function TrackActivityScreen() {
-  const position1 = {coords: {latitude: 39.9334, longitude: 32.8597}};
-
   const [initialRegion, setInitialRegion] = useState(null);
   const [currentPos, setCurrentPos] = useState(null);
   const [posHistory, setPosHistory] = useState([]);
   const [timer, setTimer] = useState(1);
   const [distance, setDistance] = useState(0);
+  const [chartHistory, setChartHistory] = useState([0, 0, 0, 0, 0, 0]);
+  const [tempMeter, setTempMeter] = useState(0);
+  const [tempMinute, setTempMinute] = useState(0);
 
   useEffect(() => {
     const timerId = setInterval(() => setTimer(timer + 1), 1000);
+    setTempMinute(tempMinute + 1);
+    if (tempMinute > 10) {
+      setTempMinute(0);
+      let addChartHistory = [...chartHistory];
 
+      addChartHistory.unshift(
+        distance - addChartHistory[addChartHistory.length - 1],
+      );
+
+      if (addChartHistory.length > 6) {
+        addChartHistory.pop();
+      }
+
+      setChartHistory(addChartHistory);
+    }
     return () => clearInterval(timerId);
   }, [timer]);
 
@@ -39,7 +55,6 @@ export default function TrackActivityScreen() {
   }, []);
 
   useEffect(() => {
-    console.log(posHistory.length);
     if (posHistory.length > 1) {
       let meter = getDistanceFromLatLonInKm(
         posHistory[posHistory.length - 1].latitude,
@@ -47,7 +62,6 @@ export default function TrackActivityScreen() {
         posHistory[posHistory.length - 2].latitude,
         posHistory[posHistory.length - 2].longitude,
       );
-      console.log('meter:', meter, 'distance:', distance);
       meter = meter + distance;
       setDistance(meter);
     }
@@ -126,7 +140,7 @@ export default function TrackActivityScreen() {
       {!!currentPos && <Text>Time: {timer} seconds</Text>}
       {!!currentPos && <Text>Distance: {distance} meters</Text>}
       {!!currentPos && <Text>Speed: {Math.floor(distance / timer)} m/s</Text>}
-
+      <BarChart history={chartHistory} />
       <TouchableOpacity>
         <Text>START</Text>
       </TouchableOpacity>
