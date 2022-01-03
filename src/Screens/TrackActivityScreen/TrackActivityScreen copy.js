@@ -5,24 +5,45 @@ import Geolocation from '@react-native-community/geolocation';
 import BarChart from '../../components/BarChart';
 import {useNavigation} from '@react-navigation/native';
 import {Timer, Countdown} from 'react-native-element-timer';
-import styles from './TrackActivity.styles';
-import routes from '../../Navigation/routes';
 
 export default function TrackActivityScreen() {
   const [initialRegion, setInitialRegion] = useState(null);
   const [currentPos, setCurrentPos] = useState(null);
   const [posHistory, setPosHistory] = useState([]);
+  const [timer, setTimer] = useState(1);
   const [distance, setDistance] = useState(0);
   const [chartHistory, setChartHistory] = useState([0, 0, 0, 0, 0, 0]);
+  const [tempMinute, setTempMinute] = useState(0);
+  const [snapShotUri, setSnapShotUri] = useState(null);
   const [activity, setActivity] = useState(false);
-  const [timer, setTimer] = useState(1);
-  const [showShareButton, setShowShareButton] = useState(false);
   const navigation = useNavigation();
-
   const timerRef = useRef(null);
 
   useEffect(() => {
+    const timerId = setInterval(() => setTimer(timer + 1), 1000);
+    setTempMinute(tempMinute + 1);
+    if (tempMinute > 10) {
+      setTempMinute(0);
+      let addChartHistory = [...chartHistory];
+
+      addChartHistory.unshift(
+        distance - addChartHistory[addChartHistory.length - 1],
+      );
+
+      if (addChartHistory.length > 6) {
+        addChartHistory.pop();
+      }
+
+      setChartHistory(addChartHistory);
+    }
+    return () => clearInterval(timerId);
+  }, [timer]);
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(info => setInitialRegion(info));
     const a = Geolocation.watchPosition(info => {
+      setCurrentPos(info);
+
       let newArr = posHistory;
 
       newArr.push({
@@ -31,8 +52,13 @@ export default function TrackActivityScreen() {
       });
       setPosHistory(newArr);
     });
-  }, []);
 
+    return () => {
+      Geolocation.clearWatch(a);
+      Geolocation.stopObserving();
+    };
+  }, []);
+  console.log(posHistory);
   useEffect(() => {
     if (posHistory.length > 1) {
       let meter = getDistanceFromLatLonInKm(
@@ -64,39 +90,8 @@ export default function TrackActivityScreen() {
     return deg * (Math.PI / 180);
   }
 
-  function handleCoordinate(e) {
-    setActivity(true);
-    setShowShareButton(false);
-    if (!!e) {
-      setTimer(e);
-    }
-    if (e == 1 || e % 3 == 0) {
-      Geolocation.getCurrentPosition(info => setCurrentPos(info));
-    }
-    if (e > 0 && e < 2) {
-      Geolocation.getCurrentPosition(info => setInitialRegion(info));
-    }
-  }
-
-  function handleActivityEnd(e) {
-    setActivity(false);
-    setShowShareButton(true);
-  }
-
   return (
     <View style={{flex: 1}}>
-      <Timer
-        ref={timerRef}
-        style={styles.timer}
-        textStyle={styles.timerText}
-        onTimes={e => {
-          handleCoordinate(e);
-        }}
-        onPause={e => {}}
-        onEnd={e => {
-          handleActivityEnd(e);
-        }}
-      />
       {!!initialRegion && !!currentPos && (
         <MapView
           style={{flex: 1}}
@@ -147,29 +142,16 @@ export default function TrackActivityScreen() {
         </MapView>
       )}
 
-      {!!currentPos && <Text>Time:{timer} seconds</Text>}
+      {!!currentPos && <Text>Time: {timer} seconds</Text>}
       {!!currentPos && <Text>Distance: {distance} meters</Text>}
       {!!currentPos && <Text>Speed: {Math.floor(distance / timer)} m/s</Text>}
-      {!!initialRegion && <BarChart history={chartHistory} />}
-      {!activity && (
-        <TouchableOpacity onPress={() => timerRef.current.start()}>
-          <Text>START</Text>
-        </TouchableOpacity>
-      )}
-      {!!activity && (
-        <TouchableOpacity
-          onPress={() => {
-            timerRef.current.stop();
-            setActivity(false);
-          }}>
-          <Text>STOP</Text>
-        </TouchableOpacity>
-      )}
-      {!!showShareButton && (
-        <TouchableOpacity>
-          <Text>SHARE</Text>
-        </TouchableOpacity>
-      )}
+      <BarChart history={chartHistory} />
+      <TouchableOpacity>
+        <Text>START</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text>STOP</Text>
+      </TouchableOpacity>
     </View>
   );
 }

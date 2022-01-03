@@ -12,7 +12,14 @@ export default function Navigation() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name={routes.HOME} component={HomeScreen} />
+        <Tab.Screen
+          name={routes.HOME}
+          component={HomeScreen}
+          options={{unmountOnBlur: true}}
+          listeners={({navigation}) => ({
+            blur: () => navigation.setParams({screen: undefined}),
+          })}
+        />
         <Tab.Screen name={routes.DASHBOARD} component={DashboardScreen} />
         <Tab.Screen name={routes.HISTORY} component={HistoryScreen} />
         <Tab.Screen name={routes.LEADERBOARD} component={LeaderBoardScreen} />

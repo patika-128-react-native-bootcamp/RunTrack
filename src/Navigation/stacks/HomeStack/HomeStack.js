@@ -9,7 +9,7 @@ import routes from '../../routes';
 export default function HomeStack() {
   const Stack = createNativeStackNavigator();
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen
         name={routes.TRACK_ACTIVITY_STACK}
         component={TrackActivityStack}

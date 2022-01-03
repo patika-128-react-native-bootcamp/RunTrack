@@ -7,7 +7,7 @@ import TrackActivityScreen from '../../../Screens/TrackActivityScreen';
 export default function TrackActivityStack() {
   const Stack = createNativeStackNavigator();
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{headerShown: false, onBlur: true}}>
       <Stack.Screen name={routes.NEW_ACTIVITY} component={NewActivityScreen} />
       <Stack.Screen
         name={routes.TRACK_ACTIVITY_SCREEN}
