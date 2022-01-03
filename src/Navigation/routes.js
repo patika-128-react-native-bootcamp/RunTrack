@@ -6,4 +6,7 @@ export default {
   LOGIN: 'Login',
   REGISTER: 'Register',
   HS_DETAILS: 'HsDetails',
+  NEW_ACTIVITY: 'NewActivity',
+  TRACK_ACTIVITY_STACK: 'TrackActivityStack',
+  TRACK_ACTIVITY_SCREEN: 'TrackActivityScreen',
 };
