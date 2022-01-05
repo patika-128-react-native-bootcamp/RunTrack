@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react';
+Timport React, {useEffect, useRef, useState} from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import MapView, {Marker, Polyline} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import BarChart from '../../components/BarChart';
 import {useNavigation} from '@react-navigation/native';
-import {Timer, Countdown} from 'react-native-element-timer';
+import {Timer} from 'react-native-element-timer';
 import styles from './TrackActivity.styles';
-import routes from '../../Navigation/routes';
+import WeatherComponent from '../../components/Weather';
 
 export default function TrackActivityScreen() {
   const [initialRegion, setInitialRegion] = useState(null);
@@ -18,7 +18,6 @@ export default function TrackActivityScreen() {
   const [timer, setTimer] = useState(1);
   const [showShareButton, setShowShareButton] = useState(false);
   const navigation = useNavigation();
-
   const timerRef = useRef(null);
 
   useEffect(() => {
@@ -32,7 +31,6 @@ export default function TrackActivityScreen() {
       setPosHistory(newArr);
     });
   }, []);
-
   useEffect(() => {
     if (posHistory.length > 1) {
       let meter = getDistanceFromLatLonInKm(
@@ -67,10 +65,12 @@ export default function TrackActivityScreen() {
   function handleCoordinate(e) {
     setActivity(true);
     setShowShareButton(false);
+    setPosHistory([]);
+
     if (!!e) {
       setTimer(e);
     }
-    if (e == 1 || e % 3 == 0) {
+    if (e % 3 == 0 || e == 1) {
       Geolocation.getCurrentPosition(info => setCurrentPos(info));
     }
     if (e > 0 && e < 2) {
@@ -144,12 +144,15 @@ export default function TrackActivityScreen() {
             ]}
             strokeWidth={6}
           />
+          <WeatherComponent />
         </MapView>
       )}
 
       {!!currentPos && <Text>Time:{timer} seconds</Text>}
       {!!currentPos && <Text>Distance: {distance} meters</Text>}
-      {!!currentPos && <Text>Speed: {Math.floor(distance / timer)} m/s</Text>}
+      {!!currentPos && (
+        <Text>Avg. Speed: {Math.floor(distance / timer)} m/s</Text>
+      )}
       {!!initialRegion && <BarChart history={chartHistory} />}
       {!activity && (
         <TouchableOpacity onPress={() => timerRef.current.start()}>
