@@ -4,7 +4,7 @@ import useAxios from '../../helpers/ApiHelper';
 import Geolocation from '@react-native-community/geolocation';
 
 export default function WeatherComponent({lat, lon}) {
-  const [weatherPos, setWeatherPos] = useState({lat: 64, lon: 149});
+  const [weatherPos, setWeatherPos] = useState({lat: 32, lon: 29});
   const {data, error, isLoading} = useAxios(weatherPos);
   useEffect(() => {
     Geolocation.getCurrentPosition(info => {
