@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text, Dimensions} from 'react-native';
-import {LineChart, BarChart} from 'react-native-chart-kit';
-import styles from './BarChart.styles';
+import {BarChart} from 'react-native-chart-kit';
+import styles from './BarChartComponent.styles';
 
-export default function DashboardScreen({history}) {
+export default function BarChartComponent({history}) {
   return (
     <View>
       <Text>Elapsed Meters in Minutes</Text>
