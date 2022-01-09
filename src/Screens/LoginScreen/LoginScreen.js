@@ -1,42 +1,54 @@
 import React, {useState} from 'react';
-import {Text, View} from 'react-native';
+import {ImageBackground, Text, View} from 'react-native';
 import TextInputComponent from '../../components/TextInput';
 import ButtonComponent from '../../components/Button';
 import auth from '@react-native-firebase/auth';
-
+import database from '@react-native-firebase/database';
+import routes from '../../Navigation/routes';
+import {useNavigation} from '@react-navigation/native';
+import styles from './LoginScreen.styles';
+import ImageBackgroundComponent from '../../components/ImageBackground/ImageBackgroundComponent';
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
   function handleLogin() {
     auth().signInWithEmailAndPassword(username, password);
   }
-  function handleRegister() {
-    auth()
-      .createUserWithEmailAndPassword(username, password)
-      .then(() => {
-        console.log('User account created & signed in!');
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
-
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-
-        console.error(error);
-      });
+  function goToRegister() {
+    navigation.navigate(routes.REGISTER);
   }
-
+  const image = {uri: 'https://wallpaperaccess.com/full/5269322.jpg'};
   return (
-    <View>
-      <Text>Username</Text>
-      <TextInputComponent value={username} onChangeText={setUsername} />
-      <Text>Password</Text>
-      <TextInputComponent value={password} onChangeText={setPassword} />
-      <ButtonComponent onPress={handleLogin} text="Login" />
-      <ButtonComponent onPress={handleRegister} text="Register" />
-    </View>
+    <ImageBackgroundComponent
+      children={
+        <View style={styles.container}>
+          <TextInputComponent
+            value={username}
+            onChangeText={setUsername}
+            type={'email-address'}
+            textContent={'Email Adress'}
+          />
+          <TextInputComponent
+            value={password}
+            onChangeText={setPassword}
+            textContent={'Password'}
+            secure
+          />
+          <View style={styles.buttonContainer}>
+            <ButtonComponent
+              onPress={handleLogin}
+              text="Login"
+              theme={'primary'}
+            />
+            <ButtonComponent
+              onPress={goToRegister}
+              text="Register"
+              theme={'secondary'}
+            />
+          </View>
+        </View>
+      }
+    />
   );
 }

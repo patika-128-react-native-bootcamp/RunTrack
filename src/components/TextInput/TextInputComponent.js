@@ -1,9 +1,24 @@
 import React from 'react';
-import {TextInput} from 'react-native';
+import {Text, TextInput, View} from 'react-native';
 import styles from './TextInputComponent.styles';
 
-export default function TextInputComponent({onChangeText, value}) {
+export default function TextInputComponent({
+  onChangeText,
+  value,
+  type,
+  secure,
+  textContent,
+}) {
   return (
-    <TextInput style={styles.input} onChangeText={onChangeText} value={value} />
+    <View style={styles.container}>
+      <Text style={styles.text}>{textContent}</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        value={value}
+        keyboardType={type}
+        secureTextEntry={secure}
+      />
+    </View>
   );
 }
