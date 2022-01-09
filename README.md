@@ -19,5 +19,6 @@ React Native Bootcamp - Last Task About  Tracking User Activity
 
   <img src="https://github.com/patika-128-react-native-bootcamp/RunTrack/blob/main/src/assets/Screenshot_1641763893.png" width="300" /> 
   <img src="https://github.com/patika-128-react-native-bootcamp/RunTrack/blob/main/src/assets/Screenshot_1641763899.png" width="300" />
+  <img src="https://github.com/patika-128-react-native-bootcamp/RunTrack/blob/main/src/assets/Screenshot_1641763330.png" width="300" />
 </p>
 
