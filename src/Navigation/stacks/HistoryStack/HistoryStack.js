@@ -16,7 +16,7 @@ export default function HistoryStack() {
       <Stack.Screen
         name={routes.HS_DETAILS}
         component={HistoryDetailsScreen}
-        options={{title: 'Burayi Duzelt'}}
+        options={{title: 'Run Details'}}
       />
     </Stack.Navigator>
   );
