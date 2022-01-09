@@ -5,8 +5,7 @@ import styles from './BarChartComponent.styles';
 
 export default function BarChartComponent({history}) {
   return (
-    <View>
-      <Text>Elapsed Meters in Minutes</Text>
+    <View style={styles.container}>
       <BarChart
         data={{
           labels: ['1', '2', '3', '4', '5', '6'],
@@ -16,8 +15,8 @@ export default function BarChartComponent({history}) {
             },
           ],
         }}
-        width={Dimensions.get('window').width} // from react-native
-        height={170}
+        width={styles.width}
+        height={styles.height}
         yAxisSuffix="M"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={styles.chartConfig}
