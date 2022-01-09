@@ -4,18 +4,22 @@ export default StyleSheet.create({
   list: {
     flexDirection: 'row',
     backgroundColor: '#b3ad9f',
-    margin: 10,
+    marginHorizontal: 10,
+    marginVertical: 5,
+    padding: 10,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  text: {
-    fontSize: 16,
-    marginLeft: 10,
-    color: 'white',
-    fontWeight: 'bold',
+  container: {
+    marginTop: 20,
   },
-  buttonContainer: {
-    width: 150,
+
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+
+    alignSelf: 'center',
   },
 });

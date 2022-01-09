@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, FlatList} from 'react-native';
 import database from '@react-native-firebase/database';
+import styles from './LeaderBoardScreen.styles';
 
 export default function LeaderBoardScreen() {
   const [userList, setUserList] = useState([]);
@@ -22,7 +23,7 @@ export default function LeaderBoardScreen() {
   }
   function renderItem(item) {
     return (
-      <View>
+      <View style={styles.list}>
         <Text>
           {item.item['username'] ? item.item['username'] : 'username'}-----
           {item.item['total_meters']}
@@ -32,7 +33,8 @@ export default function LeaderBoardScreen() {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Text style={styles.text}>LeaderBoard - First 50</Text>
       <FlatList data={userList} renderItem={renderItem} />
     </View>
   );

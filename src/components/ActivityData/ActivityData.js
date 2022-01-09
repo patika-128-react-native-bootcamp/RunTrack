@@ -5,8 +5,8 @@ import WeatherComponent from '../Weather/WeatherComponent';
 export default function ActivityData({distance, AvgSpeed}) {
   return (
     <View>
-      <Text>{distance}</Text>
-      <Text>{Math.round(AvgSpeed)}</Text>
+      <Text>Total Distance: {distance}</Text>
+      <Text>Average Speed:{Math.round(AvgSpeed)}</Text>
     </View>
   );
 }

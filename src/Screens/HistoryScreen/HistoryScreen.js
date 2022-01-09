@@ -22,13 +22,15 @@ export default function HistoryScreen() {
         {!!dbValue ? (
           <View style={styles.list}>
             <Text style={styles.text}>{item.item[0]}</Text>
-            <ButtonComponent
-              text="Details"
-              onPress={() => {
-                showDetails(item);
-              }}
-              theme={'secondary'}
-            />
+            <View style={styles.buttonContainer}>
+              <ButtonComponent
+                text="Details"
+                onPress={() => {
+                  showDetails(item);
+                }}
+                theme={'secondary'}
+              />
+            </View>
           </View>
         ) : (
           <ActivityIndicator size="large" color="#00ff00" />

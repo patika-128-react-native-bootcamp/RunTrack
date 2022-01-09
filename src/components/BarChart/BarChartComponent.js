@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Dimensions} from 'react-native';
+import {View} from 'react-native';
 import {BarChart} from 'react-native-chart-kit';
 import styles from './BarChartComponent.styles';
 
