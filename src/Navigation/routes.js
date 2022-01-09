@@ -7,6 +7,7 @@ export default {
   REGISTER: 'Register',
   HS_DETAILS: 'HsDetails',
   NEW_ACTIVITY: 'NewActivity',
-  TRACK_ACTIVITY_STACK: 'TrackActivityStack',
   TRACK_ACTIVITY_SCREEN: 'TrackActivityScreen',
+  DASHBOARD_STACK: 'DashboardStack',
+  HISTORY_STACK: 'HistoryStack',
 };
