@@ -1,5 +1,9 @@
 # Run-Track-App
-React Native Bootcamp - Last Task About  Tracking User Activity 
+React Native Bootcamp - Last Task About  Tracking User Activity
+<p float="left">
+  <img src="https://github.com/patika-128-react-native-bootcamp/RunTrack/blob/main/src/assets/ezgif-2-323c2a677a.gif " width="300" />
+</p>
+ 
 <p float="left">
   <img src="https://github.com/patika-128-react-native-bootcamp/RunTrack/blob/main/src/assets/Screenshot_1641763341.png" width="300" />
   <img src="https://github.com/patika-128-react-native-bootcamp/RunTrack/blob/main/src/assets/Screenshot_1641763374.png" width="300" /> 
@@ -21,7 +25,3 @@ React Native Bootcamp - Last Task About  Tracking User Activity
   <img src="https://github.com/patika-128-react-native-bootcamp/RunTrack/blob/main/src/assets/Screenshot_1641763899.png" width="300" />
   <img src="https://github.com/patika-128-react-native-bootcamp/RunTrack/blob/main/src/assets/Screenshot_1641763330.png" width="300" />
 </p>
-
-<video width="320" height="240" controls>
-  <source src="https://github.com/patika-128-react-native-bootcamp/RunTrack/blob/main/src/assets/mobizen_20220110_071515.mp4" type="video/mp4">
-</video>
