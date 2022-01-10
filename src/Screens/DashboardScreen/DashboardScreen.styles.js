@@ -45,6 +45,6 @@ export default StyleSheet.create({
   textContainer: {
     height: 100,
     justifyContent: 'space-between',
-    width: 230,
+    width: 250,
   },
 });
