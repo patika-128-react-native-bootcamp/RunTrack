@@ -5,5 +5,6 @@ export default StyleSheet.create({
   mapStyle: {
     flex: 1,
   },
-  text: {position: 'absolute', bottom: 100},
+  textContainer: {position: 'absolute', bottom: 100},
+  text: {fontSize: 20, color: 'black', fontWeight: 'bold'},
 });
